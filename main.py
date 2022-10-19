@@ -2,10 +2,12 @@ from game import inLine
 
 def choose_col(game):
     try:
-        col_input = int(input(f'Jugador {game.player} ingrese un número del 0 al 6: '))
+        col_input = input(f'Jugador {game.player} ingrese un número del 0 al 6: ')
+        if col_input == "q":
+            return False
+        col_input = int(col_input)
         try:
             game.throw_coin(col_input)
-            inLine.print_tablero(game)
         except TypeError:
             print('Columna llena')
     except ValueError:
@@ -14,12 +16,19 @@ def choose_col(game):
         print('Por favor, seleccione una columna del 0 al 6')    
 
 
-if __name__ == '__main__':
+def main():
     game = inLine()
     inLine.print_tablero(game)
     while True:
-        choose_col(game)
+        tuki = choose_col(game)
+        if tuki == False:
+            break
         if game.check_winner() == True:
             print(f'El juego ha terminado. Felicitaciones jugador {game.winner}, has ganado')
             break
+
+if __name__ == '__main__':
+    main()
+
+
  
